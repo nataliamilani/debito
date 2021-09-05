@@ -1,7 +1,9 @@
 package com.impacta.microservices.debito.demo.service;
 
 import com.impacta.microservices.debito.demo.domain.Debito;
+import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,10 +14,16 @@ import java.util.Random;
 @Component
 public class DebitoService {
 
-    private static final BigDecimal minValue = new BigDecimal(BigInteger.ONE);
-    private static final BigDecimal maxValue = new BigDecimal(BigInteger.TEN);
+    private DebitoRepository repository;
 
-    public List<Debito> list(){
+    public DebitoService(DebitoRepository repository) {
+        this.repository = repository;
+    }
+
+    //private static final BigDecimal minValue = new BigDecimal(BigInteger.ONE);
+    //private static final BigDecimal maxValue = new BigDecimal(BigInteger.TEN);
+
+    /*public List<Debito> list(){
         int numberOfDebit = new Random().nextInt(10) + 1;
         List<Debito> debitoList = new ArrayList<Debito>(10);
         for (int i = 0; i < numberOfDebit; i++) {
@@ -26,5 +34,9 @@ public class DebitoService {
         }
         System.out.println("debitoList: " + debitoList);
         return debitoList;
+    }*/
+
+    public Debito create(Debito debito) {
+        return repository.save(debito);
     }
 }

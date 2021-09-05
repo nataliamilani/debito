@@ -2,9 +2,8 @@ package com.impacta.microservices.debito.demo.controller;
 
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.service.DebitoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,10 +19,16 @@ public class DebitoController {
         this.debitoService = debitoService;
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<Debito> list() throws UnknownHostException {
         System.out.println("Hostname: " + InetAddress.getLocalHost().getHostName());
         List<Debito> debitoList = debitoService.list();
         return debitoList;
+    }*/
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Debito createDebito(@RequestBody Debito debitoRequest) {
+        return debitoService.create(debitoRequest);
     }
 }
