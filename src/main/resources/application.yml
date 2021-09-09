@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    #defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+
