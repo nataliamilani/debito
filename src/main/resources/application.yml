@@ -8,8 +8,8 @@ server:
   #ratelimiter:
     #instances:
       #default:
-        limit-for-period: 20
-        limit-refresh-period: 10S
+        #limit-for-period: 20
+        #limit-refresh-period: 10S
   #retry:
     #instances:
       #default:
