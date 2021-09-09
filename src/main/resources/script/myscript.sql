@@ -1,1 +1,0 @@
-INSERT INTO debito (cliente_id ,conta_id, tipo_conta, valor_debito) VALUES (1, 1, 'investimento', 100.0);

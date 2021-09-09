@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
-@Table(name = "debito")
+@Table(name = "DEBITO")
 public class Debito {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    private UUID id = UUID.randomUUID();
+    private Integer id;
 
     @Transient
     private String porta;
@@ -56,13 +56,13 @@ public class Debito {
 
     public static long getSerialversionuid() {return serialVersionUID;}
 
-    public void setValorDebito(Double valorDebito) {
-        this.valorDebito = valorDebito;
-    }
+    public void setValorDebito(Double valorDebito) {this.valorDebito = valorDebito;}
 
     public void setContaId(Integer contaId) {this.contaId = contaId;}
 
     public void setClienteId(Integer clienteId) {this.clienteId = clienteId;}
 
     public void setTipoConta(String tipoConta) {this.tipoConta = tipoConta;}
+
+    public void setId(Integer id) {this.id = id;}
 }
