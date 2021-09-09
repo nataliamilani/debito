@@ -10,16 +10,24 @@ import java.util.UUID;
 @Table(name = "debito")
 public class Debito {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     private UUID id = UUID.randomUUID();
 
+    @Transient
+    private String porta;
+
     @Column(name = "contaId")
     private Integer contaId;
+
     @Column(name = "valorDebito")
     private Double valorDebito;
+
     @Column(name = "clienteId")
     private Integer clienteId;
+
     @Column(name = "tipoConta")
     private String tipoConta;
 
@@ -45,6 +53,8 @@ public class Debito {
     public Integer getClienteId() {return clienteId;}
 
     public String getTipoConta() {return tipoConta;}
+
+    public static long getSerialversionuid() {return serialVersionUID;}
 
     public void setValorDebito(Double valorDebito) {
         this.valorDebito = valorDebito;

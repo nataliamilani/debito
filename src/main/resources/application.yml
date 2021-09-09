@@ -1,10 +1,30 @@
 server:
-  port: 8080
+  port: 8082
+#eureka:
+  #client:
+    #service-url:
+      #defaultZone: http://localhost:8761/eureka
+#resilience4j:
+  #ratelimiter:
+    #instances:
+      #default:
+        limit-for-period: 20
+        limit-refresh-period: 10S
+  #retry:
+    #instances:
+      #default:
+        #max-attempts: 3
 spring:
+  application:
+    name: debito
   jpa:
     #defer-datasource-initialization: true
     show-sql: true
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+#springdoc:
+  #show-actuator: true
+  #api-docs:
+    #path: debito/v1/api-docs
 
