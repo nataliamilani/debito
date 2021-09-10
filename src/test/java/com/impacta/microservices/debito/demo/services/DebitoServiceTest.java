@@ -5,6 +5,7 @@ import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import com.impacta.microservices.debito.demo.service.DebitoService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -102,6 +103,22 @@ public class DebitoServiceTest {
         debitoRepository.save(debito2);
 
         final Double result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
-        assertEquals(java.util.Optional.of(saldoConta), result.doubleValue());
+        Assertions.assertEquals(saldoConta, result.doubleValue());
+    }
+
+    @Test
+    public void consultarSaldoContaIdComOTipoContaCorrente(){
+        final Integer contaId = 1;
+        final Double valorDebito = -40.0;
+        final Integer clienteId = 1;
+        final String tipoConta = "contacorrente";
+        final Double saldoConta = -80.0;
+        final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        debitoRepository.save(debito1);
+        debitoRepository.save(debito2);
+
+        final Double result = debitoService.consultaSaldoContaIdContaCorrente(contaId);
+        Assertions.assertEquals(saldoConta, result.doubleValue());
     }
 }
