@@ -9,9 +9,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +41,7 @@ public class DebitoControllerTest {
         final String tipoConta = "contacorrente";
         final Debito debito = new Debito(contaId, valorDebito, clienteId, tipoConta);
 
-        when(debitorservice.create(debito)).thenReturn(debito);
+        when(debitorservice.criarDebito(debito)).thenReturn(debito);
 
         final ResponseEntity<Debito> response = template
                 .postForEntity("/debito", debito, Debito.class);
@@ -48,7 +50,7 @@ public class DebitoControllerTest {
     }
 
     @Test
-    public void aoBuscarPorContaIdDoTipoContaCorrenteRetornarListaDeMovimentosDaConta(){
+    public void aoBuscarPorContaIdDoTipoContaCorrenteRetornarExtratoDaConta(){
         final Integer contaId = 1;
         final Double valorDebito = -20.0;
         final Integer clienteId = 1;
@@ -59,7 +61,7 @@ public class DebitoControllerTest {
         when(debitorservice.findByContaIdAndTipoContaCorrente(contaId)).thenReturn(List.of(debito1, debito2));
 
         final ResponseEntity<Debito[]> response = template
-                .getForEntity("/debito/movimentos/contacorrente/" + contaId, Debito[].class );
+                .getForEntity("/debito/extrato/contacorrente/" + contaId, Debito[].class );
         final List<Debito> result = Arrays.asList(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -68,7 +70,7 @@ public class DebitoControllerTest {
     }
 
     @Test
-    public void aoBuscarPorContaIdDoTipoInvestimentoRetornarListaDeMovimentosDaConta(){
+    public void aoBuscarPorContaIdDoTipoInvestimentoRetornarExtratoDaConta(){
         final Integer contaId = 2;
         final Double valorDebito = -20.0;
         final Integer clienteId = 1;
@@ -79,7 +81,7 @@ public class DebitoControllerTest {
         when(debitorservice.findByContaIdAndTipoContaInvestimento(contaId)).thenReturn(List.of(debito1, debito2));
 
         final ResponseEntity<Debito[]> response = template
-                .getForEntity("/debito/movimentos/investimento/" + contaId, Debito[].class );
+                .getForEntity("/debito/extrato/investimento/" + contaId, Debito[].class );
         final List<Debito> result = Arrays.asList(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -88,17 +90,58 @@ public class DebitoControllerTest {
     }
 
     @Test
-    public void aoBuscarPorUmaContaIdInexistenteRetornarListaDeMovimentosVazia(){
+    public void aoBuscarPorUmaContaIdInexistenteRetornarExtratoVazio(){
         final Integer contaId = 2;
 
         when(debitorservice.findByContaIdAndTipoContaInvestimento(contaId)).thenReturn(List.of());
 
         final ResponseEntity<Debito[]> response = template
-                .getForEntity("/debito/movimentos/investimento/" + contaId, Debito[].class );
+                .getForEntity("/debito/extrato/investimento/" + contaId, Debito[].class );
         final List<Debito> result = Arrays.asList(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void aoBuscarPorContaIdDoTipoInvestimentoRetornarSaldoTotalDaConta(){
+        final Integer contaId = 2;
+        final double valorDebito = -20.0;
+        final Integer clienteId = 1;
+        final String tipoConta = "investimento";
+        final double saldoConta = -40.0;
+        final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        debitorservice.criarDebito(debito1);
+        debitorservice.criarDebito(debito2);
+
+        when(debitorservice.consultaSaldoContaIdContaInvestimento(contaId)).thenReturn(saldoConta);
+
+        final var response = template
+                .exchange("/debito/saldo/investimento/" + contaId, HttpMethod.GET, null, Double.TYPE );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
+
+    @Test
+    public void aoBuscarPorContaIdDoTipoContaCorrenteRetornarSaldoTotalDaConta(){
+        final Integer contaId = 2;
+        final double valorDebito = -30.0;
+        final Integer clienteId = 1;
+        final String tipoConta = "contacorrente";
+        final double saldoConta = -60.0;
+        final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        debitorservice.criarDebito(debito1);
+        debitorservice.criarDebito(debito2);
+
+        when(debitorservice.consultaSaldoContaIdContaInvestimento(contaId)).thenReturn(saldoConta);
+
+        final var response = template
+                .exchange("/debito/saldo/contacorrente/" + contaId, HttpMethod.GET, null, Double.TYPE );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

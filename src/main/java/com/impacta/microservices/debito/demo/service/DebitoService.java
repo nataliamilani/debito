@@ -15,7 +15,7 @@ public class DebitoService {
         this.repository = repository;
     }
 
-    public Debito create(Debito debito) {
+    public Debito criarDebito(Debito debito) {
         return repository.save(debito);
     }
 
@@ -25,6 +25,14 @@ public class DebitoService {
 
     public List<Debito> findByContaIdAndTipoContaInvestimento(Integer contaId) {
         return repository.findByContaIdAndTipoConta(contaId, "investimento");
+    }
+
+    public Double consultaSaldoContaIdContaCorrente(Integer contaId) {
+        return  repository.findBySaldoCreditoPorTipoConta(contaId, "contacorrente");
+    }
+
+    public Double consultaSaldoContaIdContaInvestimento(Integer contaId) {
+        return  repository.findBySaldoCreditoPorTipoConta(contaId, "investimento");
     }
 
 }

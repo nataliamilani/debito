@@ -39,7 +39,7 @@ public class DebitoServiceTest {
         final String tipoConta = "contacorrente";
         final Debito debito = new Debito(contaId, valorDebito, clienteId, tipoConta);
 
-        final Debito result = debitoService.create(debito);
+        final Debito result = debitoService.criarDebito(debito);
 
         assertEquals(contaId, result.getContaId());
         assertEquals(clienteId, result.getClienteId());
@@ -87,5 +87,21 @@ public class DebitoServiceTest {
         final List<Debito> result = debitoService.findByContaIdAndTipoContaInvestimento(contaId);
 
         assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void consultarSaldoContaIdComOTipoContaInvestimento(){
+        final Integer contaId = 1;
+        final Double valorDebito = -20.0;
+        final Integer clienteId = 1;
+        final String tipoConta = "investimento";
+        final Double saldoConta = -40.0;
+        final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
+        debitoRepository.save(debito1);
+        debitoRepository.save(debito2);
+
+        final Double result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
+        assertEquals(java.util.Optional.of(saldoConta), result.doubleValue());
     }
 }

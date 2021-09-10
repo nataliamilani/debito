@@ -21,18 +21,29 @@ public class DebitoController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public Debito createDebito(@RequestBody Debito debitoRequest) {
-        return debitoService.create(debitoRequest);
+        return debitoService.criarDebito(debitoRequest);
     }
 
-    @GetMapping("/movimentos/contacorrente/{contaId}")
-    public List<Debito> listContaCorrenteByContaId(@PathVariable Integer contaId) throws UnknownHostException {
+    @GetMapping("/extrato/contacorrente/{contaId}")
+    public List<Debito> consultaExtratoContaCorrenteByContaId(@PathVariable Integer contaId) throws UnknownHostException {
         List<Debito> movimentos = debitoService.findByContaIdAndTipoContaCorrente(contaId);
         return movimentos;
     }
 
-    @GetMapping("/movimentos/investimento/{contaId}")
-    public List<Debito> listInvestimentoByContaId(@PathVariable Integer contaId) throws UnknownHostException {
+    @GetMapping("/extrato/investimento/{contaId}")
+    public List<Debito> consultaExtratoContaInvestimentoByContaId(@PathVariable Integer contaId) throws UnknownHostException {
         List<Debito> movimentos = debitoService.findByContaIdAndTipoContaInvestimento(contaId);
         return movimentos;
     }
+
+    @GetMapping("/saldo/contacorrente/{contaId}")
+    public Double consultaSaldoConsolidadoContaCorrente(@PathVariable("contaId") Integer contaId) {
+        return  debitoService.consultaSaldoContaIdContaCorrente(contaId);
+    }
+
+    @GetMapping("/saldo/investimento/{contaId}")
+    public Double consultaSaldoConsolidadoContaInvestimento(@PathVariable("contaId") Integer contaId) {
+        return  debitoService.consultaSaldoContaIdContaInvestimento(contaId);
+    }
+
 }
