@@ -1,5 +1,6 @@
 package com.impacta.microservices.debito.demo.services;
 
+import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import com.impacta.microservices.debito.demo.service.DebitoService;
@@ -102,8 +103,8 @@ public class DebitoServiceTest {
         debitoRepository.save(debito1);
         debitoRepository.save(debito2);
 
-        final Double result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
-        Assertions.assertEquals(saldoConta, result.doubleValue());
+        final SaldoResponse result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
+        Assertions.assertEquals(saldoConta, result.getSaldo());
     }
 
     @Test
@@ -118,7 +119,7 @@ public class DebitoServiceTest {
         debitoRepository.save(debito1);
         debitoRepository.save(debito2);
 
-        final Double result = debitoService.consultaSaldoContaIdContaCorrente(contaId);
-        Assertions.assertEquals(saldoConta, result.doubleValue());
+        final SaldoResponse result = debitoService.consultaSaldoContaIdContaCorrente(contaId);
+        Assertions.assertEquals(saldoConta, result.getSaldo());
     }
 }

@@ -1,5 +1,6 @@
 package com.impacta.microservices.debito.demo.controllers;
 
+import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.service.DebitoService;
 import org.junit.Test;
@@ -110,7 +111,7 @@ public class DebitoControllerTest {
         final double valorDebito = -20.0;
         final Integer clienteId = 1;
         final String tipoConta = "investimento";
-        final double saldoConta = -40.0;
+        final SaldoResponse saldoConta = new SaldoResponse(-40.0);
         final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         debitorservice.criarDebito(debito1);
@@ -131,7 +132,7 @@ public class DebitoControllerTest {
         final double valorDebito = -30.0;
         final Integer clienteId = 1;
         final String tipoConta = "contacorrente";
-        final double saldoConta = -60.0;
+        final SaldoResponse saldoConta = new SaldoResponse(-40.0);
         final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         debitorservice.criarDebito(debito1);

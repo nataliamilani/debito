@@ -1,5 +1,6 @@
 package com.impacta.microservices.debito.demo.controller;
 
+import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.service.DebitoService;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,12 @@ public class DebitoController {
     }
 
     @GetMapping("/saldo/contacorrente/{contaId}")
-    public Double consultaSaldoConsolidadoContaCorrente(@PathVariable("contaId") Integer contaId) {
+    public SaldoResponse consultaSaldoConsolidadoContaCorrente(@PathVariable("contaId") Integer contaId) {
         return  debitoService.consultaSaldoContaIdContaCorrente(contaId);
     }
 
     @GetMapping("/saldo/investimento/{contaId}")
-    public Double consultaSaldoConsolidadoContaInvestimento(@PathVariable("contaId") Integer contaId) {
+    public SaldoResponse consultaSaldoConsolidadoContaInvestimento(@PathVariable("contaId") Integer contaId) {
         return  debitoService.consultaSaldoContaIdContaInvestimento(contaId);
     }
 
