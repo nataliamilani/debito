@@ -103,8 +103,8 @@ public class DebitoServiceTest {
         debitoRepository.save(debito1);
         debitoRepository.save(debito2);
 
-        final SaldoResponse result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
-        Assertions.assertEquals(saldoConta, result.getSaldo());
+        final Double result = debitoService.consultaSaldoContaIdContaInvestimento(contaId);
+        Assertions.assertEquals(saldoConta, result.doubleValue());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class DebitoServiceTest {
         debitoRepository.save(debito1);
         debitoRepository.save(debito2);
 
-        final SaldoResponse result = debitoService.consultaSaldoContaIdContaCorrente(contaId);
-        Assertions.assertEquals(saldoConta, result.getSaldo());
+        final Double result = debitoService.consultaSaldoContaIdContaCorrente(contaId);
+        Assertions.assertEquals(saldoConta, result.doubleValue());
     }
 }

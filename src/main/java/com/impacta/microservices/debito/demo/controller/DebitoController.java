@@ -39,12 +39,14 @@ public class DebitoController {
 
     @GetMapping("/saldo/contacorrente/{contaId}")
     public SaldoResponse consultaSaldoConsolidadoContaCorrente(@PathVariable("contaId") Integer contaId) {
-        return  debitoService.consultaSaldoContaIdContaCorrente(contaId);
+        SaldoResponse saldoResponse = new SaldoResponse(debitoService.consultaSaldoContaIdContaCorrente(contaId));
+        return saldoResponse;
     }
 
     @GetMapping("/saldo/investimento/{contaId}")
     public SaldoResponse consultaSaldoConsolidadoContaInvestimento(@PathVariable("contaId") Integer contaId) {
-        return  debitoService.consultaSaldoContaIdContaInvestimento(contaId);
+        SaldoResponse saldoResponse = new SaldoResponse(debitoService.consultaSaldoContaIdContaInvestimento(contaId));
+        return saldoResponse;
     }
 
 }

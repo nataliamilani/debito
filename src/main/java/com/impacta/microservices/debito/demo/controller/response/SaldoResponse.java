@@ -1,14 +1,18 @@
 package com.impacta.microservices.debito.demo.controller.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SaldoResponse {
 
-    private Double saldo;
+    private Double saldoDebito;
 
-    public SaldoResponse(Double saldo){
-        this.saldo = saldo;
+    @JsonCreator
+    public SaldoResponse(@JsonProperty("saldo_debito") Double saldo){
+        this.saldoDebito = saldo;
     }
 
-    public Double getSaldo() {return saldo;}
+    public Double getSaldoDebito() {return saldoDebito;}
 
-    public void setSaldo(Double saldo) {this.saldo = saldo;}
+    public void setSaldoDebito(Double saldoDebito) {this.saldoDebito = saldoDebito;}
 }

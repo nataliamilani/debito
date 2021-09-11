@@ -10,11 +10,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
@@ -111,7 +109,7 @@ public class DebitoControllerTest {
         final double valorDebito = -20.0;
         final Integer clienteId = 1;
         final String tipoConta = "investimento";
-        final SaldoResponse saldoConta = new SaldoResponse(-40.0);
+        final Double saldoConta =  -40.0;
         final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         debitorservice.criarDebito(debito1);
@@ -119,10 +117,12 @@ public class DebitoControllerTest {
 
         when(debitorservice.consultaSaldoContaIdContaInvestimento(contaId)).thenReturn(saldoConta);
 
-        final var response = template
-                .exchange("/debito/saldo/investimento/" + contaId, HttpMethod.GET, null, Double.TYPE );
+        final ResponseEntity<SaldoResponse> response = template
+                .getForEntity("/debito/saldo/investimento/" + contaId, SaldoResponse.class);
+        final SaldoResponse result = response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(saldoConta, result.getSaldoDebito());
 
     }
 
@@ -132,17 +132,19 @@ public class DebitoControllerTest {
         final double valorDebito = -30.0;
         final Integer clienteId = 1;
         final String tipoConta = "contacorrente";
-        final SaldoResponse saldoConta = new SaldoResponse(-40.0);
+        final Double saldoConta = -40.0;
         final Debito debito1 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(contaId, valorDebito, clienteId, tipoConta);
         debitorservice.criarDebito(debito1);
         debitorservice.criarDebito(debito2);
 
-        when(debitorservice.consultaSaldoContaIdContaInvestimento(contaId)).thenReturn(saldoConta);
+        when(debitorservice.consultaSaldoContaIdContaCorrente(contaId)).thenReturn(saldoConta);
 
-        final var response = template
-                .exchange("/debito/saldo/contacorrente/" + contaId, HttpMethod.GET, null, Double.TYPE );
+        final ResponseEntity<SaldoResponse> response = template
+                .getForEntity("/debito/saldo/contacorrente/" + contaId, SaldoResponse.class);
+        final SaldoResponse result = response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(saldoConta, result.getSaldoDebito());
     }
 }

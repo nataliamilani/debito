@@ -1,6 +1,5 @@
 package com.impacta.microservices.debito.demo.service;
 
-import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import org.springframework.stereotype.Component;
@@ -28,12 +27,12 @@ public class DebitoService {
         return repository.findByContaIdAndTipoConta(contaId, "investimento");
     }
 
-    public SaldoResponse consultaSaldoContaIdContaCorrente(Integer contaId) {
-        return  repository.findBySaldoCreditoPorTipoConta(contaId, "contacorrente");
+    public Double consultaSaldoContaIdContaCorrente(Integer contaId) {
+        return repository.findBySaldoCreditoPorTipoConta(contaId, "contacorrente");
     }
 
-    public SaldoResponse consultaSaldoContaIdContaInvestimento(Integer contaId) {
-        return  repository.findBySaldoCreditoPorTipoConta(contaId, "investimento");
+    public Double consultaSaldoContaIdContaInvestimento(Integer contaId) {
+        return repository.findBySaldoCreditoPorTipoConta(contaId, "investimento");
     }
 
 }
