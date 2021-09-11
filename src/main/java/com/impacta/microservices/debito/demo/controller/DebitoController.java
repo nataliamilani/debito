@@ -3,12 +3,16 @@ package com.impacta.microservices.debito.demo.controller;
 import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.service.DebitoService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
 import java.util.List;
 
+@Tag(name="Debito endpoint")
 @RestController
 @RequestMapping("/debito")
 public class DebitoController {
