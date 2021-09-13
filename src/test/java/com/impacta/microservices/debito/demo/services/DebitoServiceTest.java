@@ -1,6 +1,5 @@
 package com.impacta.microservices.debito.demo.services;
 
-import com.impacta.microservices.debito.demo.controller.response.SaldoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import com.impacta.microservices.debito.demo.service.DebitoService;
