@@ -18,13 +18,13 @@ services:
 
   db:
     image: mysql
-    container_name: db
-    hostname: db
+    container_name: dbdebito
+    hostname: dbdebito
     restart: always
     networks:
       - net-exemplo
     ports:
-      - '3306:3306'
+      - '3305:3306'
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
