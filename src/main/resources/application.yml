@@ -7,7 +7,7 @@ eureka:
     service-url:
       defaultZone: '${EUREKA_CONNECTION_URL:http://localhost:8761}/eureka'
     fetch-registry: true
-      register-with-eureka: true
+    register-with-eureka: true
 spring:
   application:
     name: debito
