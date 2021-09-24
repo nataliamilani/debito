@@ -24,3 +24,9 @@ spring:
       init:
         mode: always
         data-locations: classpath:data.sql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
