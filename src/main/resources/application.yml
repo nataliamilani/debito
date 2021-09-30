@@ -1,5 +1,8 @@
 server:
   port: 8082
+  error:
+    include-message: always
+    include-stacktrace: never
 eureka:
   instance:
     prefer-ip-address: true
@@ -20,10 +23,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    sql:
-      init:
-        mode: always
-        data-locations: classpath:data.sql
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
 
 management:
   endpoints:

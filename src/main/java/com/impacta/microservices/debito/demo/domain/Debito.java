@@ -10,31 +10,33 @@ import java.io.Serializable;
 @Table(name = "debito")
 public class Debito implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_transacao")
     private Integer id;
-
+/*
     @Transient
     private String porta;
-
-    @Column(name = "contaId")
+*/
+    @Column(name = "conta_id")
     private Integer contaId;
 
-    @Column(name = "valorDebito")
+    @Column(name = "valor_debito")
     private Double valorDebito;
 
-    @Column(name = "clienteId")
+    @Column(name = "cliente_id")
     private Integer clienteId;
 
-    @Column(name = "tipoConta")
+    @Column(name = "tipo_conta")
     private String tipoConta;
+
+    public Debito(){ super (); }
 
     @JsonCreator
     public Debito(@JsonProperty("conta_id") Integer contaId,
-                  @JsonProperty("valor_debito") double valorDebito,
+                  @JsonProperty("valor_debito") Double valorDebito,
                   @JsonProperty("cliente_id") Integer clienteId,
                   @JsonProperty("tipo_conta") String tipoConta) {
         this.contaId = contaId;
@@ -43,27 +45,44 @@ public class Debito implements Serializable {
         this.tipoConta = tipoConta;
     }
 
-    public Debito(){
-
+    public Integer getId() {
+        return id;
     }
 
-    public double getValorDebito() {return valorDebito;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public Integer getContaId() {return contaId;}
+    public Integer getContaId() {
+        return contaId;
+    }
 
-    public Integer getClienteId() {return clienteId;}
+    public void setContaId(Integer contaId) {
+        this.contaId = contaId;
+    }
 
-    public String getTipoConta() {return tipoConta;}
+    public Double getValorDebito() {
+        return valorDebito;
+    }
 
-    public static long getSerialversionuid() {return serialVersionUID;}
+    public void setValorDebito(Double valorDebito) {
+        this.valorDebito = valorDebito;
+    }
 
-    public void setValorDebito(Double valorDebito) {this.valorDebito = valorDebito;}
+    public Integer getClienteId() {
+        return clienteId;
+    }
 
-    public void setContaId(Integer contaId) {this.contaId = contaId;}
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
+    }
 
-    public void setClienteId(Integer clienteId) {this.clienteId = clienteId;}
+    public String getTipoConta() {
+        return tipoConta;
+    }
 
-    public void setTipoConta(String tipoConta) {this.tipoConta = tipoConta;}
+    public void setTipoConta(String tipoConta) {
+        this.tipoConta = tipoConta;
+    }
 
-    public void setId(Integer id) {this.id = id;}
 }
