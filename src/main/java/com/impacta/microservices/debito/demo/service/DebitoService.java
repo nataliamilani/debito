@@ -1,7 +1,10 @@
 package com.impacta.microservices.debito.demo.service;
 
 import com.impacta.microservices.debito.demo.domain.Debito;
+import com.impacta.microservices.debito.demo.exceptions.ContaIdNotFoundException;
+import com.impacta.microservices.debito.demo.exceptions.TipoContaNotFoundException;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,7 +13,6 @@ import java.util.List;
 public class DebitoService {
 
     private DebitoRepository repository;
-
     public DebitoService(DebitoRepository repository) {
         this.repository = repository;
     }
@@ -19,20 +21,51 @@ public class DebitoService {
         return repository.save(debito);
     }
 
-    public List<Debito> findByContaIdAndTipoContaCorrente(Integer contaId) {
-        return repository.findByContaIdAndTipoConta(contaId, "contacorrente");
+    public List<Debito> listarContas() {return repository.listarContas();}
+
+    public List<Debito> consultaTransacoesTipoConta(String tipoConta) {
+
+        if(!tipoConta.startsWith("contacorrente") && !tipoConta.startsWith("investimento")) {
+            throw new TipoContaNotFoundException("Tipo de conta incorreta, por favor pesquisar por tipo contacorrente ou investimento");
+        }
+
+        var contas = repository.findByTipoConta(tipoConta);
+        return contas;
     }
 
-    public List<Debito> findByContaIdAndTipoContaInvestimento(Integer contaId) {
-        return repository.findByContaIdAndTipoConta(contaId, "investimento");
+    public List<Debito> consultaContaIdContaCorrente(Integer contaId) {
+
+        var listDebito = repository.findByContaIdAndTipoConta(contaId, "contacorrente");
+
+        if (listDebito.isEmpty()) {
+            throw new ContaIdNotFoundException("Não encontrada conta id: " + contaId);
+        }
+        return listDebito;
+    }
+
+    public List<Debito> consultaContaIdInvestimento(Integer contaId) {
+
+        var listDebito = repository.findByContaIdAndTipoConta(contaId, "investimento");
+
+        if(listDebito.isEmpty()) {
+            throw new ContaIdNotFoundException("Não encontrada conta id: " + contaId);
+        }
+        return listDebito;
     }
 
     public Double consultaSaldoContaIdContaCorrente(Integer contaId) {
-        return repository.findBySaldoCreditoPorTipoConta(contaId, "contacorrente");
+        try{
+            return  repository.findBySaldoDebitoPorTipoConta(contaId, "contacorrente");
+        } catch (RuntimeException runtimeException) {
+            throw new ContaIdNotFoundException("Não encontrada conta id: " + contaId);
+        }
     }
 
     public Double consultaSaldoContaIdContaInvestimento(Integer contaId) {
-        return repository.findBySaldoCreditoPorTipoConta(contaId, "investimento");
+        try{
+            return  repository.findBySaldoDebitoPorTipoConta(contaId, "investimento");
+        }catch (RuntimeException runtimeException) {
+            throw new ContaIdNotFoundException("Não encontrada conta id: " + contaId);
+        }
     }
-
 }

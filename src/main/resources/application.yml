@@ -16,7 +16,7 @@ spring:
     name: debito
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: '${DATABASE_CONNECTION_URL:jdbc:mysql://localhost:3306/debitodb}'
+    url: '${DATABASE_CONNECTION_URL:jdbc:mysql://localhost:3305/debitodb}'
     username: mysql
     password: mysql
   jpa:

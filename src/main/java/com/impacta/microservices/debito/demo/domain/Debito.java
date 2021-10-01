@@ -10,21 +10,16 @@ import java.io.Serializable;
 @Table(name = "debito")
 public class Debito implements Serializable {
 
-    //private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transacao")
-    private Integer id;
-/*
-    @Transient
-    private String porta;
-*/
+    private Integer idTransacao;
+
     @Column(name = "conta_id")
     private Integer contaId;
 
     @Column(name = "valor_debito")
-    private Double valorDebito;
+    private double valorDebito;
 
     @Column(name = "cliente_id")
     private Integer clienteId;
@@ -35,22 +30,24 @@ public class Debito implements Serializable {
     public Debito(){ super (); }
 
     @JsonCreator
-    public Debito(@JsonProperty("conta_id") Integer contaId,
-                  @JsonProperty("valor_debito") Double valorDebito,
+    public Debito(@JsonProperty("id_transacao") Integer idTransacao,
+                  @JsonProperty("conta_id") Integer contaId,
+                  @JsonProperty("valor_debito") double valorDebito,
                   @JsonProperty("cliente_id") Integer clienteId,
                   @JsonProperty("tipo_conta") String tipoConta) {
+        this.idTransacao = idTransacao;
         this.contaId = contaId;
         this.valorDebito = valorDebito;
         this.clienteId = clienteId;
         this.tipoConta = tipoConta;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdTransacao() {
+        return idTransacao;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdTransacao(Integer idTransacao) {
+        this.idTransacao = idTransacao;
     }
 
     public Integer getContaId() {
@@ -61,11 +58,11 @@ public class Debito implements Serializable {
         this.contaId = contaId;
     }
 
-    public Double getValorDebito() {
+    public double getValorDebito() {
         return valorDebito;
     }
 
-    public void setValorDebito(Double valorDebito) {
+    public void setValorDebito(double valorDebito) {
         this.valorDebito = valorDebito;
     }
 
@@ -84,5 +81,4 @@ public class Debito implements Serializable {
     public void setTipoConta(String tipoConta) {
         this.tipoConta = tipoConta;
     }
-
 }
