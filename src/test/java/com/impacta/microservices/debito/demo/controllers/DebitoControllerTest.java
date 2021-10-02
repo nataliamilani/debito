@@ -2,6 +2,7 @@ package com.impacta.microservices.debito.demo.controllers;
 
 import com.impacta.microservices.debito.demo.controller.response.SaldoDebitoResponse;
 import com.impacta.microservices.debito.demo.domain.Debito;
+import com.impacta.microservices.debito.demo.domain.TipoConta;
 import com.impacta.microservices.debito.demo.service.DebitoService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +40,7 @@ public class DebitoControllerTest {
         final Integer contaId = 1;
         final Double valorDebito = -20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito = new Debito(id_transacao, contaId, valorDebito, clienteId, tipoConta);
 
         when(debitorservice.criarDebito(debito)).thenReturn(debito);
@@ -56,7 +57,7 @@ public class DebitoControllerTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito = new Debito(id_transacao, contaId, valorDebito, clienteId, tipoConta);
 
         when(debitorservice.consultaTransacoesTipoConta(tipoConta)).thenReturn(List.of(debito));
@@ -72,8 +73,8 @@ public class DebitoControllerTest {
 
     @Test
     public void listarTransacoesRealizadas(){
-        final Debito debito1 = new Debito(1, 1, 20.0, 1, "contacorrente");
-        final Debito debito2 = new Debito(2, 2, 80.0, 1, "investimento");
+        final Debito debito1 = new Debito(1, 1, 20.0, 1, TipoConta.contacorrente.toString());
+        final Debito debito2 = new Debito(2, 2, 80.0, 1, TipoConta.investimento.toString());
 
         when(debitorservice.listarContas()).thenReturn(List.of(debito1, debito2));
 
@@ -91,7 +92,7 @@ public class DebitoControllerTest {
         final Integer contaId = 1;
         final Double valorDebito = -20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
 
@@ -111,7 +112,7 @@ public class DebitoControllerTest {
         final Integer contaId = 2;
         final Double valorDebito = -20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "investimento";
+        final String tipoConta = TipoConta.investimento.toString();
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
 
@@ -131,7 +132,7 @@ public class DebitoControllerTest {
         final Integer contaId = 2;
         final double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "investimento";
+        final String tipoConta = TipoConta.investimento.toString();
         final double saldoConta =  40.0;
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
@@ -153,7 +154,7 @@ public class DebitoControllerTest {
         final Integer contaId = 2;
         final double valorDebito = 30.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final double saldoConta = 40.0;
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);

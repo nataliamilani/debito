@@ -1,7 +1,9 @@
 package com.impacta.microservices.debito.demo.services;
 
 import com.impacta.microservices.debito.demo.domain.Debito;
+import com.impacta.microservices.debito.demo.domain.TipoConta;
 import com.impacta.microservices.debito.demo.exceptions.ContaIdNotFoundException;
+import com.impacta.microservices.debito.demo.exceptions.TipoContaBadRequestException;
 import com.impacta.microservices.debito.demo.exceptions.TipoContaNotFoundException;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 import com.impacta.microservices.debito.demo.service.DebitoService;
@@ -37,7 +39,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito = new Debito(idTransacao, contaId, valorDebito, clienteId, tipoConta);
 
         final Debito result = debitoService.criarDebito(debito);
@@ -47,12 +49,17 @@ public class DebitoServiceTest {
         assertEquals(tipoConta, result.getTipoConta());
     }
 
+    @Test(expected = TipoContaBadRequestException.class)
+    public void RetornarTipoContaBadRequestExceptionQuandoTentarCadastrarTipoContaIncorreta(){
+        debitoService.criarDebito(new Debito(1, 1, 0.0, 1, "teste"));
+    }
+
     @Test
     public void ListarContas(){
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
         debitoService.criarDebito(debito1);
@@ -68,7 +75,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
         debitoService.criarDebito(debito1);
@@ -91,7 +98,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Debito debito = new Debito(idTransacao, contaId, valorDebito, clienteId, tipoConta);
         debitoRepository.save(debito);
 
@@ -113,7 +120,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "investimento";
+        final String tipoConta = TipoConta.investimento.toString();
         final Debito debito = new Debito(idTransacao, contaId, valorDebito, clienteId, tipoConta);
         debitoRepository.save(debito);
 
@@ -134,8 +141,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 20.0;
         final Integer clienteId = 1;
-        final String tipoConta = "investimento";
-        final Double saldoConta = 40.0;
+        final String tipoConta = TipoConta.investimento.toString();
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);
         debitoRepository.save(debito1);
@@ -156,7 +162,7 @@ public class DebitoServiceTest {
         final Integer contaId = 1;
         final Double valorDebito = 40.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
         final Double saldoConta = 80.0;
         final Debito debito1 = new Debito(1, contaId, valorDebito, clienteId, tipoConta);
         final Debito debito2 = new Debito(2, contaId, valorDebito, clienteId, tipoConta);

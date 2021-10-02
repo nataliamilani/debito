@@ -1,7 +1,9 @@
 package com.impacta.microservices.debito.demo.service;
 
 import com.impacta.microservices.debito.demo.domain.Debito;
+import com.impacta.microservices.debito.demo.domain.TipoConta;
 import com.impacta.microservices.debito.demo.exceptions.ContaIdNotFoundException;
+import com.impacta.microservices.debito.demo.exceptions.TipoContaBadRequestException;
 import com.impacta.microservices.debito.demo.exceptions.TipoContaNotFoundException;
 import com.impacta.microservices.debito.demo.repository.DebitoRepository;
 
@@ -18,6 +20,10 @@ public class DebitoService {
     }
 
     public Debito criarDebito(Debito debito) {
+
+        if(!debito.getTipoConta().equals(TipoConta.contacorrente.toString()) && !debito.getTipoConta().equals(TipoConta.investimento.toString())) {
+            throw new TipoContaBadRequestException("Tipo de conta iválido, por favor digitar contacorrente ou investimento");
+        }
         return repository.save(debito);
     }
 
@@ -25,7 +31,7 @@ public class DebitoService {
 
     public List<Debito> consultaTransacoesTipoConta(String tipoConta) {
 
-        if(!tipoConta.startsWith("contacorrente") && !tipoConta.startsWith("investimento")) {
+        if(!tipoConta.equals(TipoConta.contacorrente.toString()) && !tipoConta.equals(TipoConta.investimento.toString())) {
             throw new TipoContaNotFoundException("Tipo de conta incorreta, por favor pesquisar por tipo contacorrente ou investimento");
         }
 

@@ -12,7 +12,7 @@ public class DebitoTest {
         final Integer contaId = 1;
         final double valorDebito = 10.0;
         final Integer clienteId = 1;
-        final String tipoConta = "contacorrente";
+        final String tipoConta = TipoConta.contacorrente.toString();
 
         final Debito debito = new Debito(idTransacao, contaId, valorDebito, clienteId, tipoConta);
 
