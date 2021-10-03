@@ -1,2 +1,3 @@
 com/impacta/microservices/debito/demo/controllers/DebitoControllerTest.class
 com/impacta/microservices/debito/demo/services/DebitoServiceTest.class
+com/impacta/microservices/debito/demo/domain/DebitoTest.class

@@ -3,7 +3,9 @@
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/DebitoApplication.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/controller/DebitoController.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/domain/Debito.java
+/Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/exceptions/TipoContaBadRequestException.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/configuration/OpenApiConfiguration.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/exceptions/TipoContaNotFoundException.java
+/Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/domain/TipoConta.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/controller/response/SaldoDebitoResponse.java
 /Users/nat/repositories/debito/src/main/java/com/impacta/microservices/debito/demo/service/DebitoService.java

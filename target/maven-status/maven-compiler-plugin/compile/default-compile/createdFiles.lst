@@ -1,5 +1,10 @@
+com/impacta/microservices/debito/demo/controller/response/SaldoDebitoResponse.class
+com/impacta/microservices/debito/demo/exceptions/ContaIdNotFoundException.class
+com/impacta/microservices/debito/demo/exceptions/TipoContaBadRequestException.class
+com/impacta/microservices/debito/demo/exceptions/TipoContaNotFoundException.class
 com/impacta/microservices/debito/demo/DebitoApplication.class
 com/impacta/microservices/debito/demo/domain/Debito.class
+com/impacta/microservices/debito/demo/domain/TipoConta.class
 com/impacta/microservices/debito/demo/service/DebitoService.class
 com/impacta/microservices/debito/demo/repository/DebitoRepository.class
 com/impacta/microservices/debito/demo/controller/DebitoController.class
