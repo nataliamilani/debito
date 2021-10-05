@@ -23,6 +23,7 @@ Sendo assim, nela temos os request para os seguintes objetivos:
 - Java 11
 - Maven
 - Junit
+- Swagger
 
 **Monitoração:**
 - Prometheus
